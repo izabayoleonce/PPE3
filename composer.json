@@ -1,0 +1,17 @@
+{
+    "name": "vendor/vendor",
+    "autoload": {
+        "psr-4": {
+            "Vendor\\Vendor\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "izabayoleonce",
+            "email": "izabayoleonce@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.4"
+    }
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./public/css/default.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <title>PPE</title>
+</head>
+<body>
+    <header class="row header-fr container-fluid">
+        {% block header %}
+            header par default
+        {% endblock %}
+        {% block right %}
+            right default
+        {% endblock %}
+        {% block left %}
+            left defaut
+        {% endblock %}
+        
+    </header>
+
+    <main class="container">
+        {% block body %}
+            body par defaut
+        {% endblock %}
+    </main>
+
+    <footer class="row footer  container-fluid">
+        {% block footer %}
+        footer par defaut
+        {% endblock %}
+    </footer>
+    <script src="./public/js/jquery-3.6.1.min.js" type="application/javascript"></script>
+    <script src="./public/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="./public/js/default.js" type="application/javascript"></script>
+</body>
+</html>

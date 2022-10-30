@@ -45,13 +45,57 @@
                                 <input class="form-check-input me-2" type="checkbox" value="" name="cookies" id="form2Example3" />
                                 <label class="form-check-label" for="form2Example3">se souvenir de moi</label>
                             </div>
-                            <a href="#!" class="text-body">mot de passe oublier?</a>
+                            <!--model for modif password -->
+                            <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalToggleLabel">Changer votre mot de passe</h5>
+                                            <button type="button" class="border-0 btn-outline-danger" data-bs-dismiss="modal" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg  text-black-50" viewBox="0 0 16 16">
+                                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body" id="modal-body">
+                                            <div class="mb-3 row">
+                                                <label for="staticEmail" class="col-sm-2 col-form-label">email</label>
+                                                <div class="col-sm-10">
+                                                    <input type="email"  class="form-control" id="staticEmail" value="" placeholder="email@example.com">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="inputLogin" class="col-sm-2 col-form-label" >login</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="inputLogin">
+                                                 </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <div class="col-sm-10" id="message">
+                                                    
+                                                 </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <div class="col-sm-10">
+                                                    <button type="button" role="button" class="btn btn-secondary" id="verify"> verifier</button>
+                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer" id="modal-footer">
+                                            {# <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal" type="button">Open second modal</button> #}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a data-bs-toggle="modal" href="#exampleModalToggle" role="button" class="text-body">mot de passe oublier?</a>
                         </div>
 
                         <div class="text-center text-lg-start mt-4 pt-2">
                             <button type="submit" class="btn btn-primary btn-lg"
                             style="padding-left: 2.5rem; padding-right: 2.5rem;">connection</button>
-                            <p class="small fw-bold mt-2 pt-1 mb-0">cliquez ici pour <a href="#!" class="link-danger">S'inscrir</a></p>
+                            <p class="small fw-bold mt-2 pt-1 mb-0">cliquez ici pour <a href="?controller=utilisateur&action=create" class="link-danger">S'inscrir</a></p>
+                        </div>
+                        <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-light text-success" id="changePass">
+                            
                         </div>
                         {% if message is defined %}
                             <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-light text-danger">
@@ -61,6 +105,11 @@
 
                     </form>
                 </div>
+                {% if msg %}
+                    <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary text-light">
+                        {{msg}}
+                    </div>
+                {% endif %}
             </div>
         </div>
         

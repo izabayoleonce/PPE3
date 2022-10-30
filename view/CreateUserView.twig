@@ -1,0 +1,203 @@
+{% extends "ConnectionView.twig" %}
+
+{% block body %}
+{# <pre>
+    {{ dump(donnee) }}
+</pre> #}
+    {% if donnee is defined %}
+        <section class="vh-100" style="background-color: #eee;">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-lg-12 col-xl-11">
+                        <div class="card text-black" style="border-radius: 25px;">
+                            <div class="card-body p-md-5">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                                        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">S'inscrir</p>
+                                        <p class="bg-light text-primary fw-bold mb-5 mx-1 mx-md-4 mt-4">{{donnee.message}}</p>
+                                        <form action="?controller=utilisateur&action=createValidate" class="mx-1 mx-md-4" method="post">
+                                            <!-- name -->
+
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <input type="text" id="form3Example1c" class="form-control" name="name" value="{{donnee.name}}" />
+                                                    <i class="bi bi-person-fill"></i>
+                                                    <label class="form-label" for="form3Example1c">Nom</label>
+                                                </div>
+                                            </div>
+
+                                            <!-- lastname -->
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <input type="text" id="form3Example1c" class="form-control" name="lastname" value="{{donnee.lastname}}" />
+                                                    <i class="bi bi-person-fill"></i>
+                                                    <label class="form-label" for="form3Example1c">Prénom</label>
+                                                </div>
+                                            </div>
+
+                                            <!-- email -->
+                                            <div class="d-flex flex-row align-items-center mb-4">    
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <input type="email" id="form3Example3c" class="form-control" name="email" value="{{donnee.email}}" />
+                                                    <i class="bi bi-envelope-fill"></i>
+                                                    <label class="form-label" for="form3Example3c">Email</label>
+                                                </div>
+                                            </div>
+
+                                            <!-- login -->
+                                            <div class="d-flex flex-row align-items-center mb-4">    
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <input type="text" id="form3Example3c" class="form-control" name="login" value="{{donnee.login}}" />
+                                                    <i class="bi bi-box-arrow-in-right"></i>
+                                                    <label class="form-label" for="form3Example3c">Login</label>
+                                                </div>
+                                            </div>
+
+                                            <!-- password -->
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <div class="form-outline flex-fill mb-0">
+                                                <input type="password" id="form3Example4c" class="form-control" name="password" value="{{donnee.password}}"/>
+                                                <i class="bi bi-lock-fill"></i>
+                                                <label class="form-label" for="form3Example4c">Mot de passe</label>
+                                                </div>
+                                            </div>
+
+                                            <!-- reapect password -->
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <input type="password" id="form3Example4cd" class="form-control" name="Repassword" value="{{donnee.repassword}}"/>
+                                                    <span viewBox="0 5 16 16"><i class="bi bi-key-fill"></i></span>
+                                                    <label class="form-label" for="form3Example4cd">Répètez votre mot de passe.</label>
+                                                </div>
+                                            </div>
+
+                                            <!-- newsletter -->
+                                            <div class="form-check d-flex justify-content-left mb-5">
+                                                <input class="form-check-input" type="checkbox" value="{{donnee.newsletter}}" name='newsletter' id="form2Example3c" />
+                                                <label class="form-check-label" for="form2Example3">
+                                                    Newsletter
+                                                </label>
+                                            </div>
+
+                                            <!-- button register -->
+                                            <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                                <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                                            </div>
+
+                                        </form>
+
+                                        
+                                    </div>
+                                    <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                                        class="img-fluid" alt="Sample image">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> 
+    {% else %}
+        <section class="vh-100" style="background-color: #eee;">
+             <div class="container h-100">
+                 <div class="row d-flex justify-content-center align-items-center h-100">
+                     <div class="col-lg-12 col-xl-11">
+                         <div class="card text-black" style="border-radius: 25px;">
+                             <div class="card-body p-md-5">
+                                 <div class="row justify-content-center">
+                                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                                         <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">S'inscrir</p>
+
+                                         <form action="?controller=utilisateur&action=createValidate" class="mx-1 mx-md-4" method="post">
+
+                                             <div class="d-flex flex-row align-items-center mb-4">                                                 
+                                                 <div class="form-outline flex-fill mb-0">
+                                                     <input type="text" id="form3Example1c" class="form-control" name="name" />
+                                                     <i class="bi bi-person-fill"></i>
+                                                     <label class="form-label" for="form3Example1c">Nom</label>
+                                                 </div>
+                                             </div>
+
+                                                <!-- name -->
+                                             <div class="d-flex flex-row align-items-center mb-4">
+                                                 <div class="form-outline flex-fill mb-0">
+                                                     <input type="text" id="form3Example1c" class="form-control" name="lastname" />
+                                                     <i class="bi bi-person-fill"></i>
+                                                     <label class="form-label" for="form3Example1c">Prénom</label>
+                                                 </div>
+                                             </div>
+
+                                                <!-- lastname -->
+                                             <div class="d-flex flex-row align-items-center mb-4">                                                 
+                                                 <div class="form-outline flex-fill mb-0">
+                                                     <input type="email" id="form3Example3c" class="form-control" name="email" />
+                                                     <i class="bi bi-envelope-fill"></i>
+                                                     <label class="form-label" for="form3Example3c">Email</label>
+                                                 </div>
+                                             </div>
+
+                                                <!-- email -->
+                                             <div class="d-flex flex-row align-items-center mb-4">
+                                                 <div class="form-outline flex-fill mb-0">
+                                                    <input type="password" id="form3Example4c" class="form-control" name="password" />
+                                                    <i class="bi bi-lock-fill"></i>
+                                                    <label class="form-label" for="form3Example4c">Mot de passe</label>
+                                                 </div>
+                                             </div>
+
+                                             <!-- login -->
+                                            <div class="d-flex flex-row align-items-center mb-4">    
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <input type="text" id="form3Example3c" class="form-control" name="login" value="{{donnee.login}}" />
+                                                    <i class="bi bi-box-arrow-in-right"></i>
+                                                    <label class="form-label" for="form3Example3c">Login</label>
+                                                </div>
+                                            </div>
+                                             
+                                             <!-- password -->
+                                             <div class="d-flex flex-row align-items-center mb-4">
+                                                 <div class="form-outline flex-fill mb-0">
+                                                     <input type="password" id="form3Example4cd" class="form-control" name="Repassword" />
+                                                     <span><i class="bi bi-key-fill"></i></span>
+                                                     <label class="form-label" for="form3Example4cd">Répètez votre mot de passe.</label>
+                                                 </div>
+                                             </div>
+
+                                                <!-- reapect password -->
+                                             <div class="form-check d-flex justify-content-left mb-5">
+                                                 <input class="form-check-input" type="checkbox" value="1" name='newsletter' id="form2Example3c" />
+                                                 <label class="form-check-label" for="form2Example3">
+                                                     Newsletter
+                                                 </label>
+                                             </div>
+
+                                                <!-- newsletter -->
+                                             <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                                 <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                                             </div>
+
+                                         </form>
+
+                                     </div>
+                                     <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                                         class="img-fluid" alt="Sample image">
+
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+        </section>
+    {% endif %}
+{% endblock %}

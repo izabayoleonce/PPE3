@@ -76,29 +76,29 @@ class Utilisateurs
              
     public function setIsadmin($isadmin)
     {
-        if($isadmin != null)
+        if($isadmin == null && empty($isadmin))
         {
-            $this->_isadmin = $isadmin;
-        } else {
             $this->_isadmin = 0;
+        } else {
+            $this->_isadmin = $isadmin;
         }
     }
 
             
     public function setActive($active)
     {
-        if($active != null)
+        if($active == null && empty($active))
         {
-            $this->_active = $active;
+            $this->_active = 0 ;
         } else {
-            $this->_active = 0;
+            $this->_active = $active;
         }
     }
 
              
     public function setNewletter($newletter)
     {
-        if($newletter == null)
+        if($newletter == null && empty($newletter))
         {
             $this->_newletter = 0;
         } else {
@@ -107,7 +107,7 @@ class Utilisateurs
     }
     public function setObservation($observation)
     {
-        if (is_string($observation)) {
+        if (is_string($observation) && !empty($observation)) {
             $this->_observation =$observation;
         }else{
             $this->_observation = "OK";

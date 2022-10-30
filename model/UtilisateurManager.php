@@ -135,4 +135,19 @@ class UtilisateurManager extends Manager
       else
       {}
     }
+
+    public function verifyMailLogin($email,$login)
+    {
+      $q=$this->manager
+                ->db
+                ->prepare('SELECT * FROM utilisateurs WHERE login=:login AND mail=:mail');
+      $q->bindValue("login",$login, PDO::PARAM_STR_CHAR);
+      $q->execute([
+          'login'     =>$login,
+          'mail'      =>$email,
+      ]);
+        
+      $userData = $q->fetch(PDO::FETCH_ASSOC);
+      return $userData;
+    }
 }

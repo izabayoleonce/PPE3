@@ -5,10 +5,11 @@ class Navigation
 {
     private $_id,
             $_idAuteur,
+            $_idPage,
             $_lienPage,
             $_libelleLien,
             $_nomDuMenu,
-            $_idPosition,
+            $_positionMenu,
             $_publier,
             $_dateCreation,
             $_dateModification;
@@ -36,7 +37,7 @@ class Navigation
         $id = (int)$id;
         if($id > 0)
         {
-            $this->_id = $id;
+            $this->_id = htmlentities($id);
         }
     }
 
@@ -46,50 +47,59 @@ class Navigation
         $idAuteur = (int)$idAuteur;
         if($idAuteur > 0)
         {
-            $this->_idAuteur = $idAuteur;
+            $this->_idAuteur = htmlentities($idAuteur);
+        }
+    }
+    
+    public function setIdPage($idPage)
+    {
+        $idPage = (int)$idPage;
+        if($idPage > 0)
+        {
+            $this->_idPage = htmlentities($idPage);
         }
     }
 
             
     public function setLienPage($lienPage)
     {
-        $this->_lienPage = $lienPage;
+        $this->_lienPage = htmlentities($lienPage);
     }
 
              
     public function setLibelleLien($libelleLien)
     {
-        $this->_libelleLien = $libelleLien;
+        $this->_libelleLien = htmlentities($libelleLien);
     }
 
              
     public function setNomDuMenu($nomDuMenu)
     {
-        $this->_nomDuMenu = $nomDuMenu;
+        $this->_nomDuMenu = htmlentities($nomDuMenu);
     }
 
             
-    public function setIdPosition($idPosition)
+    public function setIdPosition($positionMenu)
     {
-        $this->_idPosition = $idPosition;
+        $this->_positionMenu = htmlentities($positionMenu);
     }
 
             
     public function setPublier($publier)
     {
-        $this->_publier = $publier;
+        $this->_publier = htmlentities($publier);
     }
 
              
     public function setDateCreation($dateCreation)
     {
-        $this->_dateCreation = $dateCreation;
+        $this->_dateCreation = htmlentities($dateCreation);
     }
 
             
     public function setDateModification($dateModification)
     {
-        $this->_dateModification = $dateModification;
+        $this->_dateModification = htmlentities($dateModification);
     }
 
      
@@ -102,6 +112,10 @@ class Navigation
     public function getIdAuteur()
     {
         return $this->_idAuteur;
+    }
+    public function getIdPage()
+    {
+        return $this->_idPage;
     }
 
             
@@ -119,9 +133,9 @@ class Navigation
     }
 
 
-    public function getIdPosition()
+    public function getPositionMenu()
     {
-        return $this->_idPosition;
+        return $this->_positionMenu;
     }
 
 

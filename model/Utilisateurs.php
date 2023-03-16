@@ -36,7 +36,7 @@ class Utilisateurs
     {
         $id = (int)$id;
         if ($id > 0) {
-           $this->_id = $id; 
+           $this->_id = htmlentities($id); 
         }
         
     }
@@ -44,7 +44,7 @@ class Utilisateurs
            
     public function setNom($nom)
     {
-        $this->_nom = $nom;
+        $this->_nom = htmlentities($nom);
 
     }
 
@@ -52,25 +52,25 @@ class Utilisateurs
 
     public function setPrenom($prenom)
     {
-        $this->_prenom = $prenom;
+        $this->_prenom = htmlentities($prenom);
 
     }
 
     public function setMail($mail)
     {
-        $this->_mail = $mail;
+        $this->_mail = htmlentities($mail);
     }
 
 
     public function setLogin($login)
     {
-        $this->_login = $login;
+        $this->_login = htmlentities($login);
     }
 
  
     public function setPassword($password)
     {
-        $this->_password = $password;
+        $this->_password = htmlentities($password);
     }
 
              
@@ -80,7 +80,7 @@ class Utilisateurs
         {
             $this->_isadmin = 0;
         } else {
-            $this->_isadmin = $isadmin;
+            $this->_isadmin = htmlentities($isadmin);
         }
     }
 
@@ -91,7 +91,7 @@ class Utilisateurs
         {
             $this->_active = 0 ;
         } else {
-            $this->_active = $active;
+            $this->_active = htmlentities($active);
         }
     }
 
@@ -102,13 +102,13 @@ class Utilisateurs
         {
             $this->_newletter = 0;
         } else {
-            $this->_newletter = $newletter;
+            $this->_newletter = htmlentities($newletter);
         }
     }
     public function setObservation($observation)
     {
         if (is_string($observation) && !empty($observation)) {
-            $this->_observation =$observation;
+            $this->_observation = htmlentities($observation);
         }else{
             $this->_observation = "OK";
         }

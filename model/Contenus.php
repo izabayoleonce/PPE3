@@ -5,14 +5,13 @@ namespace model;
 class Contenus
 {
     private $_id,
-            $_nom,
+            $_nomContenu,
             $_contenu,
-            $_idTypeContenus,
-            $_idAuteur,
+            $_idType,
+            $_idPage,
             $_publier,
             $_dateCreation,
-            $_dateModification,
-            $_position;
+            $_dateModification;
 
     public function __construct(array $donnees)
     {
@@ -37,39 +36,35 @@ class Contenus
         $id = (int)$id;
         if($id > 0)
         {
-            $this->_id = $id;
+            $this->_id = htmlentities($id);
         }
     }
 
             
-    public function setNom($nom)
+    public function setNomContenu($nomContenu)
     {
-        $this->_nom = $nom;
+        $this->_nomContenu = htmlentities($nomContenu);
     }
 
 
     public function setContenu($contenu)
     {
-        $this->_contenu = $contenu;
+        $this->_contenu = htmlentities($contenu);
     }
 
-    public function setIdTypeContenus($idTypeContenus)
+    public function setIdType($idType)
     {
-        $this->_idTypeContenus = $idTypeContenus;
+        $this->_idType = htmlentities($idType);
     }
 
-           
-    public function setIdAuteur($idAuteur)
-    {
-        $this->_idAuteur = $idAuteur;
-    }
+    
 
             
     public function setPublier($publier)
     {
         if($publier != null)
         {
-            $this->_publier = $publier;
+            $this->_publier = htmlentities($publier);
         } else {
             $this->_publier = 0;
         }
@@ -77,73 +72,84 @@ class Contenus
 
             
     public function setDateCreation($dateCreation)
-    {
-        $this->_dateCreation = $dateCreation;
+    {  
+        $dateCreation = date("Y-m-d H:i:s", time());
+        if (isset($dateCreation)) {
+            $this->_dateCreation = htmlentities($dateCreation);
+        }else{
+            $this->_dateCreation = date("Y-m-d H:i:s", time());
+        }
+        
     }
 
             
     public function setDateModification($dateModification)
     {
-        $this->_dateModification = $dateModification;
+        $dateModification = date("Y-m-d H:i:s", time());
+        if (isset($dateModification)) {
+            $this->_dateModification = htmlentities($dateModification);
+        }else{
+            $this->_dateModification = date("Y-m-d H:i:s", time());
+        }
+        
     }
 
-            
-    public function setPosition($position)
-    {
-        $this->_position = $position;
-    }
 
     
-    public function get_id()
+    public function getId()
     {
         return $this->_id;
     }
 
             
-    public function get_nom()
+    public function getNomContenu()
     {
-        return $this->_nom;
-    }
+        return $this->_nomContenu;
+    } 
 
      
-    public function get_contenu()
+    public function getContenu()
     {
         return $this->_contenu;
     }
 
    
-     public function get_idTypeContenus()
+     public function getIdType()
     {
-        return $this->_idTypeContenus;
+        return $this->_idType;
     }
 
     
-    public function get_idAuteur()
-    {
-        return $this->_idAuteur;
-    }
-
-    
-    public function get_publier()
+    public function getPublier()
     {
         return $this->_publier;
     }
 
     
-    public function get_dateCreation()
+    public function getDateCreation()
     {
         return $this->_dateCreation;
     }
 
     
-    public function get_dateModification()
+    public function getDateModification()
     {
         return $this->_dateModification;
     }
 
-    
-    public function get_position()
+    /**
+     * Get the value of _idPage
+     */ 
+    public function getIdPage()
     {
-        return $this->_position;
+        return $this->_idPage;
+    }
+
+    /**
+     * Set the value of _idPage
+     */ 
+    public function setIdPage($_idPage)
+    {
+        $this->_idPage = $_idPage;
     }
 }

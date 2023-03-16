@@ -4,10 +4,7 @@ namespace model;
 class TypeContenus
 {
     private $_id,
-            $_titre,
-            $_texte,
-            $_photo,
-            $_lien;
+            $_titre;
     
     public function __construct(array $donnees)
     {
@@ -32,7 +29,7 @@ class TypeContenus
     {
         $id = (int)$id;
         if ($id > 0) {
-            $this->_id = $id;
+            $this->_id = htmlentities($id);
         }
         
     }
@@ -40,25 +37,7 @@ class TypeContenus
             
     public function setTitre($titre)
     {
-        $this->_titre = $titre;
-    }
-
-            
-    public function setTexte($texte)
-    {
-        $this->_texte = $texte;
-    }
-
-            
-    public function setPhoto($photo)
-    {
-        $this->_photo = $photo;
-    }
-
-            
-    public function setLien($lien)
-    {
-        $this->_lien = $lien;
+        $this->_titre = htmlentities($titre);
     }
 
     
@@ -71,20 +50,5 @@ class TypeContenus
     public function getTitre()
     {
         return $this->_titre;
-    }
-
-            
-    public function getTexte()
-    {
-        return $this->_texte;
-    }
-    public function getPhoto()
-    {
-        return $this->_photo;
-    }
-
-    public function getLien()
-    {
-        return $this->_lien;
     }
 }

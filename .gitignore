@@ -1,0 +1,17 @@
+#all my image
+*.jpg
+*.png
+*.jpeg
+*.webp
+*.svg
+*.jfif
+*.gif
+*.pjp
+
+#pesonal folder
+dossier
+folder
+
+#vsCode
+
+.vscode

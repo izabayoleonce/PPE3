@@ -1,6 +1,8 @@
 <?php
 namespace controller;
 
+// echo '</br>';
+// var_dump($_SERVER);
 
 abstract class Controller
 {

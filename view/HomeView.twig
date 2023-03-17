@@ -1,0 +1,170 @@
+{% extends "Pagelayout.html.twig" %}
+
+{% block header %}
+  <ul class="nav justify-content-end bg-light">
+    <li class="nav-item mr-3">
+      {% if idusers is defined %}
+      <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <form>
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel">Créer un lien de navigation</h5>
+                <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"><span class="bi bi-x-lg"></span></button>
+              </div>
+              <form>
+                <div class="modal-body">
+                    <label for="nav">nom du lien</label>
+                    <input type="text" name="nav" class="form-control" id="nav"  />
+                </div>
+                <div class="modal-footer">
+                  <button type="bottun" id="createNav" class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <a href="?controller=utilisateur&action=default" class="nav-link btn btn-primary rounded-circle fs-4"data-bs-toggle="modal" href="#exampleModalToggle" role="button" aria-current="page" href="?controller=page&action=page&id={{idusers}}"><i class="bi bi-plus-lg"></i></a>
+      {% endif %}
+    </li>
+    <li class="nav-item ml-2">
+      <a class="nav-link btn btn-outline-primary {% block active %} active {% endblock %}" aria-current="page" href="#">Active</a>
+    </li>
+    {# <li class="nav-item ml-2">
+      <a class="nav-link btn btn-outline-primary  {% block link0 %} {% endblock %}" href="#">Link</a>
+    </li>
+    <li class="nav-item ml-2">
+      <a class="nav-link btn btn-outline-primary  {% block link1  %} {% endblock %}"  href="#">Link</a>
+    </li> #}
+    <li class="nav-item ml-2">
+      <a href="?controller=utilisateur&action=logout" class="nav-link btn btn-outline-danger  {% block disabled %} {% endblock %}" href="#" tabindex="-1" >Deconnect</a>
+    </li>
+  </ul>
+
+{% endblock %}
+{# 
+     display all page  
+#}
+{% block left %}
+  <section class="container-fluid">
+  
+    {# <pre>
+      {{ dump(user) }}
+    </pre> #}
+      <div class="offcanvas offcanvas-start bg-dark text-light" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
+        {% if user is defined %}
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBackdropLabel">{{user.prenom}} {{user.nom}}</h5>
+          </div>
+        {% endif %}
+        <div class="offcanvas-body">
+          <ul class="nav flex-column">
+            <li class="nav-item" id="right">
+              <a class="nav-link active {% block activeRight %} active {% endblock %} text-primary" aria-current="page" href="#"></a>
+            </li>
+            <li class="nav-item" id="right">
+              <a class="nav-link text-primary" href="#"></a>
+            </li>
+            <li class="nav-item text-primary addPage" id="right">
+              {# <a class="nav-link page" href="#"></a> #}
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary btnPage" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="bi bi-plus-lg"></i>
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Créer une page</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+                    </div>
+                    <div class="modal-body" style="color: #000;">
+                      <input type="hidden" value="{{idusers}}" name="idUser" id="idUser">
+                      <label for="validationCustom04" class="form-label">Position</label>
+                      <select class="form-select" value="" id="validationCustom04" required>
+                        <option selected disabled value="">Choisir la position</option>
+                        {% for position in listPosition %}
+                           <option value={{position.id}}>{{position.nom}}</option>
+                        {% endfor %}
+                      </select>
+                      <input type="number" class="form-control" id="validationCustom03NumPage" min="1" max="99" onkeyup="if(parseInt(this.value)>99 || parseInt(this.value)<1){ this.value =99; return false; }" placeholder="numero de page" required>
+                      <input type="text" class="form-control" id="validationCustom03Nom" placeholder="nom" required>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1greeting" value="1" >
+                        <label class="form-check-label" for="exampleRadios1">
+                          page d'acceuil
+                        </label>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" id="addPage" data-bs-dismiss="modal">OK</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item" id="right">
+              <a class="nav-link text-primary" href="#" tabindex="-1" aria-disabled="true"></a>
+            </li>
+            <li class="nav-item" id="right">
+              <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
+                  <a class="nav-link text-dark btn btn-primary" type="button" >Disabled button</a>
+              </span>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+  {% endblock %}
+ {# 
+    display all type content
+ #}
+  {% block right %}
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel">Les types de contenu utiliser </h5>
+        
+      </div>
+      <div class="offcanvas-body">
+        {% if listType is defined %}
+          {% for list in listType %}
+              <li class="text-black">{{list.titre}}</li>
+          {% endfor %} 
+        {% endif %}
+        {% if msg is defined %}
+          <p class="alert alert-danger" role="alert">{{msg}}</p>
+        {% endif %}
+        <div class="newTypeLst"></div>
+        {# <button type="button" class="btn btn-primary" id="newType"><i class="bi bi-plus-lg"></i> <span>nouveau type de contenu</span></button> #}
+      </div>
+    </div>
+  {% endblock %}
+
+  {% block body %}
+    {# <pre>
+      {{ dump(listpage) }}
+    </pre> #}
+
+    <ol class="list-group list-group-numbered">
+      {% for page in listpage %}
+        <a href="?controller=page&action=contenuAccess&id={% if user is defined %}{{user.id}}{% endif %}&page={{page.id}}">
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold textDecor">{{page.nom}}</div>
+                
+            </div>
+            {# <span class="badge bg-danger rounded-pill"></span> #}
+          </li>
+        </a>
+      {% endfor %}
+    </ol>
+{% endblock %}
+{% block endAllBlock %}
+</section>
+{% endblock %}
+
+{% block footer %}
+    
+{% endblock %}

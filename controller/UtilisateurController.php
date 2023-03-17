@@ -1,68 +1,138 @@
 <?php
 namespace controller;
+use model\PageManager;
 use model\utilisateurs;
 use model\UtilisateurManager;
+use model\TypeContenusManager;
 
 class UtilisateurController extends Controller
 {
-    protected $userManager;
+    protected $userManager,
+              $pageManager,
+              $typeContenuManager;
     public function __construct()
     {
         $this->userManager = new UtilisateurManager();
+        $this->pageManager = new PageManager();
+        $this->typeContenuManager = new TypeContenusManager();
         parent::__construct();
     }
 
     public function defaultAction()
     {
-        
-    }
+        $cle_secrete = random_bytes(SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
+        $nonce = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
 
-    public function loginAction()
-    {
-        $msg = 'Veillez remplire les duex champs login et mot de passe';
-        var_dump($_POST);
+        $msg = 'Veillez remplire les deux champs: login et mot de passe';
         
-        if (isset($_POST['password'])  && isset($_POST['login']) &&
-            !empty($_POST['password']) && !empty($_POST['login'])) {
-               $user = $this->userManager->getUsers($_POST['login']);
-               $checkPassword = sodium_crypto_pwhash_str_verify($user['password'], $_POST['password'] );
-               $isAdmin = $user['isadmin'];
-               $activate = $user['active'];
-                   
-                   
-               if ($checkPassword) {
-                $_SESSION['login'] = $user['login'];
-                $_SESSION['password'] = $_POST['password'];
-                if ($isAdmin == 1 && $activate == 1) {
-                    $idAdmin = $user['id'];
-                    $data=[
-                        'idadmin'   => $idAdmin
-                    ];
-                    $this->render('Adminhome',$data);
-                }elseif ($isAdmin == 0 && $activate == 1) {
-                    $idUser = $user['id'];
-                    $data=[
-                        'idadmin'   => $idUser
-                    ];
-                    $this->render('Home',$data);
+        if ( isset($_COOKIE['ID']) && !empty($_COOKIE['ID'])) {
+            $login = sodium_crypto_secretbox_open($_COOKIE['ID'], $nonce, $cle_secrete);
+               $user = $this->userManager->getUsers($login);
+               if ($user) {
+                    $isAdmin = $user['isadmin'];
+                    $activate = $user['active'];
+                        
+                        $_SESSION['login'] = $user['login'];
+                        if ($isAdmin == 1 && $activate == 1) {
+                            $idAdmin = $user['id'];
+                            $data=[
+                                'isadmin'   => $idAdmin
+                            ];
+                            $this->render('Adminhome',$data);
+                        }elseif ($isAdmin == 0 && $activate == 1) {
+                            $idUser = $user['id'];
+                            $lstPages = $this->pageManager->getPagesUser($idUser);
+                            $listType = $this->typeContenuManager->getTypeContenusUser($idUser);
+                            $data=[
+                                'listpage'  => $lstPages,
+                                'idusers'   => $idUser, 
+                                'user'      => $user,
+                                'listType'  =>$listType
+                            ];
+                            $this->render('Home',$data);
+                        }
+                        elseif ($isAdmin == 0 && $activate == 0) {
+                            $msg="Votre compte est en attente d'activation, il sera bientôt activé le cas échéant veillez de contacter les administrateurs.";
+                            $data=[
+                                'msg'       => $msg,
+                            ];
+                            $this->render("Connection", $data);
+                        }
                 }
-                elseif ($isAdmin == 0 && $activate == 0) {
-                    $msg="Votre compte est en attente d'activation, il sera bientôt activé le cas échéant veillez de contacter les administrateurs.";
-                    $data=[
-                        'msg'       => $msg,
-                    ];
-                    $this->render("Connection", $data);
-                }
-               }else {
+                else {
                     $msg = " Cet utilisateur n'exit pas verifier le login et le mot de passe saisi";
                     $data=[
                         'message'       => $msg,
                     ];
                     $this->render("Connection", $data); 
-               }
-            if (isset($_POST['cookies'])) {
-                setcookie('login', $user['login'], time()+(60*60*48));
-            }else {}
+                }
+        }else{
+            $data=[
+                'message'       => $msg,
+            ];
+            $this->render("Connection", $data); 
+        }   
+    }
+
+    public function loginAction()
+    {
+        $msg = 'Veillez remplire les deux champs: login et mot de passe';
+        // var_dump($_POST);
+        
+        if (isset($_POST['password'])  && isset($_POST['login']) &&
+            !empty($_POST['password']) && !empty($_POST['login'])) {
+               $user = $this->userManager->getUsers(htmlspecialchars($_POST['login']));
+               if ($user) {
+                    $checkPassword = sodium_crypto_pwhash_str_verify($user['password'], htmlspecialchars($_POST['password']) );
+                    $isAdmin = $user['isadmin'];
+                    $activate = $user['active'];
+                        
+                    if ($checkPassword) {
+                        $_SESSION['login'] = $user['login'];
+                        if ($isAdmin == 1 && $activate == 1) {
+                            $idAdmin = $user['id'];
+                            $data=[
+                                'isadmin'   => $idAdmin
+                            ];
+                            $this->render('Adminhome',$data);
+                        }elseif ($isAdmin == 0 && $activate == 1) {
+                            $idUser = $user['id'];
+                            $lstPages = $this->pageManager->getPagesUser($idUser);
+                            $listPosition = $this->pageManager->getAllPosition();
+                            $listType = $this->typeContenuManager->getTypeContenusUser($idUser);
+                            $data=[
+                                'listpage'        => $lstPages,
+                                'idusers'         => $idUser, 
+                                'user'            => $user,
+                                'listType'        =>$listType,
+                                'listPosition'    =>$listPosition
+                            ];
+                            $this->render('Home',$data);
+                        }
+                        elseif ($isAdmin == 0 && $activate == 0) {
+                            $msg="Votre compte est en attente d'activation, il sera bientôt activé le cas échéant veillez de contacter les administrateurs.";
+                            $data=[
+                                'msg'       => $msg,
+                            ];
+                            $this->render("Connection", $data);
+                        }
+                    }else {
+                        $msg = " Cet utilisateur n'exit pas verifier le login et le mot de passe saisi";
+                        $data=[
+                            'message'       => $msg,
+                        ];
+                        $this->render("Connection", $data); 
+                    }
+                }
+                else {
+                    $msg = " Cet utilisateur n'exit pas verifier le login et le mot de passe saisi";
+                    $data=[
+                        'message'       => $msg,
+                    ];
+                    $this->render("Connection", $data); 
+                }
+                // var_dump($_POST['cookies']);
+                
         }else{
             $data=[
                 'message'       => $msg,
@@ -219,6 +289,25 @@ class UtilisateurController extends Controller
     public function updateValidateAction()
     {
         
+    }
+
+    public function manageAction()
+    {
+        $login = htmlspecialchars($_SESSION['login']);
+        $admin = $this->userManager->getUsers($login);
+        $idAdmin = intval($admin["id"]);
+        $otherUsers = $this->userManager->getAllUsersWithout($idAdmin);
+    }
+    public function messageAction()
+    {
+    }
+
+    public function logoutAction()
+    {
+        session_destroy();
+        $data=[];
+        $View = "Connection";
+        $this->render($View, $data); 
     }
 
 }

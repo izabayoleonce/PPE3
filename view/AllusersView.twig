@@ -1,0 +1,27 @@
+{% extends "AdminhomeView.twig" %}
+{% block body %}
+    <table class="table">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">nummero</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prenom</th>
+      <th scope="col">Observation</th>
+      <th scope="col">Activer</th>
+      <th scope="col">Admin</th>
+      <th scope="col">supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td><a class="btn btn-success">✓</a></td>
+      <td><a class="btn btn-success">ok</a></td>
+      <td><a class="btn btn-danger">X</a></td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

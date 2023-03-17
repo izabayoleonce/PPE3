@@ -8,25 +8,35 @@ class UtilisateurManager extends Manager
 {
     public $_userData,
            $_statut;
+
+    /**
+     * create user
+     * @param Utilisateurs $user
+     * @return void
+     */
     public function add(Utilisateurs $user)
     {
         $q=$this->manager
-             ->db
-             ->prepare('INSERT INTO utilisateurs (nom,prenom, mail,login,password, observation, newletter) 
+                ->db
+                ->prepare('INSERT INTO utilisateurs (nom,prenom, mail,login,password, observation, newletter) 
                         VALUES(:nom, :prenom, :mail, :login, :password, :observation, :newletter)');
-             $user=$q->execute([
-                 ':nom'           => $user->getNom(),
-                 ':prenom'        => $user->getPrenom(),
-                 ':mail'          => $user->getMail(),         
-                 ':login'         => $user->getLogin(),
-                 ':password'      => $user->getPassword(),
-                 ':observation'   => $user->getObservation(),
-                 ':newletter'     => $user->getNewletter(),
-
-             ]);
+        $user=$q->execute([
+          ':nom'           => $user->getNom(),
+          ':prenom'        => $user->getPrenom(),
+          ':mail'          => $user->getMail(),         
+          ':login'         => $user->getLogin(),
+          ':password'      => $user->getPassword(),
+          ':observation'   => $user->getObservation(),
+          ':newletter'     => $user->getNewletter(),
+        ]);
              
     }
 
+    /**
+     * recover user by login
+     * @param mixed $login
+     * @return list(informations of user)
+     */
     public function getUsers($login)
     {
         $q=$this->manager
@@ -41,6 +51,12 @@ class UtilisateurManager extends Manager
         return $userData;
         
     }
+
+      /**
+       * remote number of user whith login
+       * @param string $login
+       * @return int
+       */
 
     public function getUsersNb($login)
     {
@@ -127,10 +143,25 @@ class UtilisateurManager extends Manager
       /* $q = $this->_db->query('SELECT id, nom, degats FROM personnages WHERE id = '.$info);*/
         $q = $this->manager
                   ->db
-                  ->prepare('SELECT id, login, password FROM utilisateurs WHERE id = :id' );
-        $q->execute([':id' => $info]);
+                  ->prepare('SELECT * FROM utilisateurs WHERE id = :id' );
+        $q->execute(['id' => $info]);
         $donnees = $q->fetch(PDO::FETCH_ASSOC);
         return new Utilisateurs($donnees);
+      }
+      else
+      {}
+    }
+    public function getAllUsersWithout($info)
+    {
+      if (is_int($info))
+      {
+      /* $q = $this->_db->query('SELECT id, nom, degats FROM personnages WHERE id = '.$info);*/
+        $q = $this->manager
+                  ->db
+                  ->prepare('SELECT * FROM utilisateurs WHERE id <> :id' );
+        $q->execute([':id' => $info]);
+        $donnees = $q->fetchAll(PDO::FETCH_ASSOC);
+        return $donnees;
       }
       else
       {}

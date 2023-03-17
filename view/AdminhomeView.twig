@@ -1,0 +1,37 @@
+{% extends "Pagelayout.html.twig" %}
+
+{% block header %}
+<ul class="nav justify-content-end bg-light">
+  <li class="nav-item mr-3">
+  </li>
+  <li class="nav-item ml-2">
+    <a class="nav-link btn btn-outline-primary {% block active %} active {% endblock %}" aria-current="page" href="#">Active</a>
+  </li>
+  <li class="nav-item ml-2">
+    <a class="nav-link btn btn-outline-primary" href="?controller=utilisateur&action=manage">Gestion des utilisateur</a>
+  </li>
+  <li class="nav-item ml-2">
+    <a class="nav-link btn btn-outline-primary" href="?controller=utilisateur&action=message"><i class="bi bi-chat-dots-fill"></i></a>
+  </li>
+  <li class="nav-item ml-2">
+    <a class="nav-link btn btn-outline-danger" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-power"></i></a>
+  </li>
+</ul>
+{% endblock %}
+
+{% block left %}
+    
+{% endblock %}
+
+{% block right %}
+    
+{% endblock %}
+{% block body %}
+    <h1>Bienvenu sur la page administrateur</h1>
+{% endblock %}
+{% block cookie %}
+  
+{% endblock %}
+{% block footer %}
+    
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends "HomeView.twig" %}
+
+{% block left %}
+    
+{% endblock %}
+{% block body %}
+<div class="d-grid gap-2 p-2 d-md-flex justify-content-md-end">
+  <a class="me-md-2 ml-1 p-1"  href="" id="aper" style="color: #000;">Aperçu</a>
+  <a class="btn btn-primary" type="button" href="" id="publie">Publier</a>
+</div>
+<div class="card text-center">
+    <div class="card-header">
+        {% if nom is defined %}
+          <p>La page en cours de modification est <strong>{{nom}}</strong></p>  
+        {% endif %}
+        {# <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="true" href="#">Active</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+        </ul> #}
+    </div>
+    <div class="card-body">
+        {% for contenu in listContenu  %} 
+                <div class="card mb-2">
+                    <div class="row g-0">
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                {# <h3 class="card-title">{{contenu.type}}</h3> #}
+                                
+                                {% if contenu.type == "photo" %}
+                                    <img src="{{contenu.contenu}}" class="img-fluid rounded-start" data-source="{{contenu.contenu}}" styles="width: 5rem;">  
+                                {% elseif contenu.type == "titre"  %}
+                                    <h5>{{contenu.contenu}}</h5>
+                                {% elseif contenu.type == "lien"  %}
+                                    <p class="card-text"><a href="{{contenu.contenu}}" target="_blank" rel="noopener noreferrer">{{contenu.contenu}}</a></p>
+                                {% else %}
+                                    <p class="card-text">{{contenu.contenu}}</p>
+                                {% endif %}
+                                
+                                <p class="card-text"><small class="text-muted">{{contenu.dateModif}}</small></p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="position-relative">
+                                <div class="position-absolute top-0 start-50 translate-middle-x"><p class="badge rounded-pill badge-danger small mb-1">{{contenu.type}}</p></div>
+                                <div class="position-relative top-0 end-0 ">
+                                    {% if contenu.publier == 1 %}
+                                        <p class=" badge rounded-pill badge-success small mb-1">publier</p>
+                                    {% else %}
+                                        <p class="badge rounded-pill badge-light small mb-1">non-publier</p>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+    <div id="contenue-new">
+    </div>
+</div>
+
+   <fom method="post" enctype="multipart/form-data">
+        {% if idPage is defined %}
+            <input type="hidden" value="{{idPage}}" name="idPage" id="page" />
+        {% endif %}
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+
+                    <p class="text-danger" id="error"></p>
+                    <div id="photo"></div>
+                    <p id="link-file">
+                        
+                    </p>
+                    <p id="titre">
+                    </p>
+                    <p id="img">
+                        {# <img src="..." class="img-fluid rounded-start" alt="..."> #}
+                    </p>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                        <select class="inpBorder form-select" id="typeContenu" value="" aria-label="Default select example">
+                            <option value="-1" selected>selectionnez le type de contenu</option>
+                            {% for type in listType %}
+                                <option class="text-black-50" value="{{type.id}}" name="type" id="type" >{{type.titre}}</option>
+                            {% endfor %}
+                        </select></h5>
+                         <input type="hidden" value="{{changer.dateHeure|date(" Y-m-d H:m:i")|upper}}" name="date" id="date"/>
+
+                        <p class="card-text" id="contenu"></p>
+                        <p class="card-text" id="lien"></p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-primary" id="insert">Inseré</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </fom>
+
+    </section>
+{% endblock %}
